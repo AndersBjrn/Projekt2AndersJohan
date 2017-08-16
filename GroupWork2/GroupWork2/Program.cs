@@ -10,6 +10,8 @@ namespace GroupWork2
     {
         static void Main(string[] args)
         {
+            // Hello from Johan
+
             GameBoard board = CreateBoard();
             ChooseShips(board);
             PlaceShips();
