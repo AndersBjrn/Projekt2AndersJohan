@@ -8,5 +8,29 @@ namespace GroupWork2
 {
     class GameBoard
     {
+        public void CreateBoard()
+        {
+            Console.Write("Hur stor spelplan vill du ha? (x gånger x rutor) ");
+            int size = Program.CheckThatInputIsInt();
+
+
+            int[,] gameBoard = new int[size, size];
+
+            Console.WriteLine("");
+            Console.WriteLine();
+            for (int i = 0; i < gameBoard.GetLength(0); i++)
+            {
+                Console.WriteLine("-------------");
+                Console.Write("|");
+
+                for (int j = 0; j < gameBoard.GetLength(1); j++)
+                {
+                    Console.Write(gameBoard[i, j] + "|");
+                }
+                Console.WriteLine("");
+            }
+            Console.WriteLine("-------------");
+            Console.WriteLine();
+        }
     }
 }
