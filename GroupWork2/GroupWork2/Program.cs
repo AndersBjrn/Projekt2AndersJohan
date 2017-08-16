@@ -10,29 +10,78 @@ namespace GroupWork2
     {
         static void Main(string[] args)
         {
-            // Hello from Johan
-
             GameBoard board = CreateBoard();
             ChooseShips(board);
             PlaceShips();
         }
 
-        private static List<Ship> ChooseShips(GameBoard board)
+        private static List<Ship> ChooseShips(GameBoard board)//Lets the user decide to add ships or use default number of ships
         {
             Console.WriteLine("Do you want default number of ships?(y/n):");
             string answer = YesOrNo();
             if (answer == "y")
             {
-                return DecideDefaultNumberOfShips();
+                return DecideDefaultNumberOfShips(board);
             }
             else
             {
                 List<Ship> ships = new List<Ship>();
                 Console.Write("How many Battleships(size 4)?: ");
                 int battleships = CheckThatInputIsInt();
+                for (int i = 0; i < battleships; i++)
+                {
+                    Ship ship = new Ship(4);
+                    ships.Add(ship);
+                }
+                Console.Write("How many Cruisers(size 3)?: ");
+                int cruisers = CheckThatInputIsInt();
+                for (int i = 0; i < battleships; i++)
+                {
+                    Ship ship = new Ship(3);
+                    ships.Add(ship);
+                }
+                Console.Write("How many Destroyers(size 2)?: ");
+                int destroyers = CheckThatInputIsInt();
+                for (int i = 0; i < battleships; i++)
+                {
+                    Ship ship = new Ship(2);
+                    ships.Add(ship);
+                }
+                Console.Write("How many Submarines(size 1)?: ");
+                int submarines = CheckThatInputIsInt();
+                for (int i = 0; i < battleships; i++)
+                {
+                    Ship ship = new Ship(1);
+                    ships.Add(ship);
+                }
                 return ships;
             }
         }
+
+        private static List<Ship> DecideDefaultNumberOfShips(GameBoard board)
+        {
+            List<Ship> ships = new List<Ship>();
+            if (board.size > 25)
+            {
+                ships.Add(new Ship(4));
+                ships.Add(new Ship(3));
+                ships.Add(new Ship(3));
+                ships.Add(new Ship(2));
+                ships.Add(new Ship(2));
+                ships.Add(new Ship(1));
+                ships.Add(new Ship(1));
+            }
+            else
+            {
+                ships.Add(new Ship(4));
+                ships.Add(new Ship(3));
+                ships.Add(new Ship(2));
+                ships.Add(new Ship(2));
+                ships.Add(new Ship(1));
+                ships.Add(new Ship(1));
+            }
+            return ships;
+        }//If the board is larger than 5 squares add more ships
 
         private static string YesOrNo()//Checks that the answer is yes, y or no, n and returns y or n in lower case
         {
@@ -53,7 +102,7 @@ namespace GroupWork2
             return input;
         }
 
-        private static int CheckThatInputIsInt()//Makes sure the imput string is convertable to int and returns it
+        public static int CheckThatInputIsInt()//Makes sure the imput string is convertable to int and returns it
         {
             int inputInt = 0;
             string input = Console.ReadLine();
