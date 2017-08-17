@@ -86,7 +86,7 @@ namespace GroupWork2
         private static string YesOrNo()//Checks that the answer is yes, y or no, n and returns y or n in lower case
         {
             string input = Console.ReadLine();
-            while (!input.Equals("yes", StringComparison.InvariantCultureIgnoreCase) && !input.Equals("no", StringComparison.InvariantCultureIgnoreCase) && !input.Equals("y",StringComparison.InvariantCultureIgnoreCase) && !input.Equals("n", StringComparison.InvariantCultureIgnoreCase))
+            while (!input.Equals("yes", StringComparison.InvariantCultureIgnoreCase) && !input.Equals("no", StringComparison.InvariantCultureIgnoreCase) && !input.Equals("y", StringComparison.InvariantCultureIgnoreCase) && !input.Equals("n", StringComparison.InvariantCultureIgnoreCase))
             {
                 Console.WriteLine("Enter answer again (y/n): ");
                 input = Console.ReadLine();
