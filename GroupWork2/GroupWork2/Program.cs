@@ -10,7 +10,7 @@ namespace GroupWork2
     {
         static void Main(string[] args)
         {
-            GameBoard board = CreateBoard();
+            GameBoard.CreateBoard();
             ChooseShips(board);
             PlaceShips();
         }
