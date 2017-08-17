@@ -12,7 +12,7 @@ namespace GroupWork2
         public int size { get; set; }
         public bool alive { get; set; }
         public int[,] position { get; set; }
-        public string direction { get; set; }
+        public char direction { get; set; }
 
         public Ship(int size)
         {

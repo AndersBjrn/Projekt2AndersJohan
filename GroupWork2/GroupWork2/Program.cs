@@ -10,7 +10,7 @@ namespace GroupWork2
     {
         static void Main(string[] args)
         {
-            GameBoard.CreateBoard();
+            GameBoard board = GameBoard.CreateBoard();
             ChooseShips(board);
             PlaceShips();
         }
@@ -61,7 +61,7 @@ namespace GroupWork2
         private static List<Ship> DecideDefaultNumberOfShips(GameBoard board)
         {
             List<Ship> ships = new List<Ship>();
-            if (board.size > 25)
+            if (board.size*board.size > 64)
             {
                 ships.Add(new Ship(4));
                 ships.Add(new Ship(3));
@@ -118,7 +118,7 @@ namespace GroupWork2
         {
             foreach (Ship ship in ships)
             {
-                PrintGameBoard();
+                Gameboard.PrintGameBoard();
                 Console.Write("At which coordinate do you want to place your ship, and in which direction? EX: 4,3,H");
                 string input = Console.ReadLine();
                 while (!ShipStringIsValid(input))
@@ -139,18 +139,21 @@ namespace GroupWork2
         private static bool ShipStringIsValid(string input)
         {
             string[] inputs = input.Split(',');
-            if (inputs.Length != 3)
+            int int1;
+            int int2;
+            if (int.TryParse(inputs[0], out int1) && int.TryParse(inputs[1],out int2))
             {
-                return false;
-            }
-            for (int i = 0; i < inputs.Length; i++)
-            {
-                if (inputs[i].Length != 1)
+                if (int1 <= Gameboard.size && int2 <= GameBoard.size)
                 {
-                    return false;
+                    string direction = inputs[3].ToLower();
+                    if (direction == "v" || direction == "h")
+                    {
+                        return true;
+                    }
+
                 }
             }
-            return true;
+            return false;
         }
     }
 }
