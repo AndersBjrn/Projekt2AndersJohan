@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace GroupWork2
 {
-    class GameBoard
+    public class GameBoard
     {
-        public void CreateBoard()
+        public static CreateBoard()
         {
             Console.Write("Hur stor spelplan vill du ha? (x gånger x rutor) ");
             int size = Program.CheckThatInputIsInt();
@@ -32,5 +32,6 @@ namespace GroupWork2
             Console.WriteLine("-------------");
             Console.WriteLine();
         }
+
     }
 }
