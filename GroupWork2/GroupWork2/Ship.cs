@@ -8,8 +8,11 @@ namespace GroupWork2
 {
     class Ship
     {
-        string name;
-        int size;
+        public string  name { get; set; }
+        public int size { get; set; }
+        public bool alive { get; set; }
+        public int[,] position { get; set; }
+        public string direction { get; set; }
 
         public Ship(int size)
         {

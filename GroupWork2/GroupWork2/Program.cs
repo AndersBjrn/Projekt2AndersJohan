@@ -35,21 +35,21 @@ namespace GroupWork2
                 }
                 Console.Write("How many Cruisers(size 3)?: ");
                 int cruisers = CheckThatInputIsInt();
-                for (int i = 0; i < battleships; i++)
+                for (int i = 0; i < cruisers; i++)
                 {
                     Ship ship = new Ship(3);
                     ships.Add(ship);
                 }
                 Console.Write("How many Destroyers(size 2)?: ");
                 int destroyers = CheckThatInputIsInt();
-                for (int i = 0; i < battleships; i++)
+                for (int i = 0; i < destroyers; i++)
                 {
                     Ship ship = new Ship(2);
                     ships.Add(ship);
                 }
                 Console.Write("How many Submarines(size 1)?: ");
                 int submarines = CheckThatInputIsInt();
-                for (int i = 0; i < battleships; i++)
+                for (int i = 0; i < submarines; i++)
                 {
                     Ship ship = new Ship(1);
                     ships.Add(ship);
@@ -81,7 +81,7 @@ namespace GroupWork2
                 ships.Add(new Ship(1));
             }
             return ships;
-        }//If the board is larger than 5 squares add more ships
+        }//Adds a default number of ships
 
         private static string YesOrNo()//Checks that the answer is yes, y or no, n and returns y or n in lower case
         {
@@ -114,9 +114,43 @@ namespace GroupWork2
             return inputInt;
         }
 
-        private static void PlaceShips(board)
+        private static void PlaceShips(GameBoard board, List<Ship> ships)
         {
+            foreach (Ship ship in ships)
+            {
+                PrintGameBoard();
+                Console.Write("At which coordinate do you want to place your ship, and in which direction? EX: 4,3,H");
+                string input = Console.ReadLine();
+                while (!ShipStringIsValid(input))
+                {
+                    Console.Write("Enter coordinate and direction, EX: 6,5,V");
+                    input = Console.ReadLine();
+                }
+                ship.position = new int[Convert.ToInt32(input[0]), Convert.ToInt32(input[1])];
+                ship.direction = input[2];
+                while (!ShipPlacementIsValid)
+                {
+
+                }
+            }
             Console.WriteLine();
+        }
+
+        private static bool ShipStringIsValid(string input)
+        {
+            string[] inputs = input.Split(',');
+            if (inputs.Length != 3)
+            {
+                return false;
+            }
+            for (int i = 0; i < inputs.Length; i++)
+            {
+                if (inputs[i].Length != 1)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }
