@@ -21,6 +21,11 @@ namespace GroupWork2
             }
         }
 
+        internal static void CheckCoordinate()
+        {
+            throw new NotImplementedException();
+        }
+
         public static int[,] gameBoard { get; set; } // Tvådimensionell vektor = spelplanen
         public GameBoard(int size)
         {
