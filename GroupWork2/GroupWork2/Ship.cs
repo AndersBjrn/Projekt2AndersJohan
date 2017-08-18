@@ -11,8 +11,9 @@ namespace GroupWork2
         public string  name { get; set; }
         public int size { get; set; }
         public bool alive { get; set; }
-        public int[,] position { get; set; }
-        public char direction { get; set; }
+        public int positionX { get; set; }
+        public int positionY { get; set; }
+        public string direction { get; set; }
 
         public Ship(int size)
         {

@@ -8,7 +8,7 @@ namespace GroupWork2
 {
     public class GameBoard
     {
-        private int size;
+        public int size;
         public int Size
         {
             get
@@ -21,34 +21,48 @@ namespace GroupWork2
             }
         }
 
-        public int[,] gameBoard { get; set; }
+        public int[,] matrix { get; set; }
+
         public GameBoard(int size)
         {
             this.size = size;
-            gameBoard = new int[size, size];
+            matrix = new int[size, size];
         }
         public static GameBoard CreateBoard()
 
         {
-            Console.Write("Hur stor spelplan vill du ha? (x gånger x rutor) ");
+            Console.Write("Hur stor spelplan vill du ha? (x gånger x rutor): ");
             int size = Program.CheckThatInputIsInt();
             GameBoard board = new GameBoard(size);
-
             return board;
         }
 
-        public void PrintBoard()
+        public static void PrintBoard(GameBoard gameBoard)
         {
             Console.WriteLine("");
             Console.WriteLine();
-            for (int i = 0; i < gameBoard.GetLength(0); i++)
+            for (int i = 0; i < gameBoard.size; i++)
             {
                 Console.WriteLine("-------------");
                 Console.Write("|");
 
-                for (int j = 0; j < gameBoard.GetLength(1); j++)
+                for (int j = 0; j < gameBoard.size; j++)
                 {
-                    Console.Write(gameBoard[i, j] + "|");
+                    if (gameBoard.matrix[i, j] == 1)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write(gameBoard.matrix[i, j]);
+                        Console.ResetColor();
+                        Console.Write("|"); 
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Blue;
+                        Console.Write(gameBoard.matrix[i, j]);
+                        Console.ResetColor();
+                        Console.Write("|");
+                    }
+                    
                 }
                 Console.WriteLine("");
             }

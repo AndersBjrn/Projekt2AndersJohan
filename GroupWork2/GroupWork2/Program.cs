@@ -11,8 +11,9 @@ namespace GroupWork2
         static void Main(string[] args)
         {
             GameBoard board = GameBoard.CreateBoard();
-            ChooseShips(board);
-            PlaceShips();
+            GameBoard.PrintBoard(board);
+            List<Ship> ships = new List<Ship>(ChooseShips(board));
+            PlaceShips(board, ships);
         }
 
         private static List<Ship> ChooseShips(GameBoard board)//Lets the user decide to add ships or use default number of ships
@@ -61,7 +62,7 @@ namespace GroupWork2
         private static List<Ship> DecideDefaultNumberOfShips(GameBoard board)
         {
             List<Ship> ships = new List<Ship>();
-            if (board.size*board.size > 64)
+            if (board.size * board.size > 64)
             {
                 ships.Add(new Ship(4));
                 ships.Add(new Ship(3));
@@ -118,34 +119,112 @@ namespace GroupWork2
         {
             foreach (Ship ship in ships)
             {
-                Gameboard.PrintGameBoard();
-                Console.Write("At which coordinate do you want to place your ship, and in which direction? EX: 4,3,H");
-                string input = Console.ReadLine();
-                while (!ShipStringIsValid(input))
+                bool breakFlag = false;
+                string[] coordinate = null;
+                while (!breakFlag)
                 {
-                    Console.Write("Enter coordinate and direction, EX: 6,5,V");
-                    input = Console.ReadLine();
-                }
-                ship.position = new int[Convert.ToInt32(input[0]), Convert.ToInt32(input[1])];
-                ship.direction = input[2];
-                while (!ShipPlacementIsValid)
-                {
-
+                    coordinate = AskForCoordinateForShip(board, ship);
+                    int coordinateX = Convert.ToInt32(coordinate[0]);
+                    int coordinateY = Convert.ToInt32(coordinate[1]);
+                    string direction = coordinate[2];
+                    if (ShipPositionIsValid(coordinateX, coordinateY, board, ship, direction))
+                    {
+                        ship.positionX = coordinateX;
+                        ship.positionY = coordinateY;
+                        ship.direction = direction;
+                        board = AddShipToBoard(board, ship);
+                        breakFlag = true;
+                    }
+                    GameBoard.PrintBoard(board);
                 }
             }
-            Console.WriteLine();
         }
 
-        private static bool ShipStringIsValid(string input)
+        private static GameBoard AddShipToBoard(GameBoard board, Ship ship)
+        {
+            string direction = ship.direction;
+            for (int i = 0; i < ship.size; i++)
+            {
+                if (ship.direction.Equals("v"))
+                {
+                    board.matrix[ship.positionX + i, ship.positionY] = 1;
+                }
+                else if (ship.direction.Equals("h"))
+                {
+                    board.matrix[ship.positionX, ship.positionY + i] = 1;
+                }
+            }
+            return board;
+        }
+
+        private static string[] AskForCoordinateForShip(GameBoard board, Ship ship)
+        {
+            Console.Write("At which coordinate do you want to place your ship: " + ship.name + ", and in which direction? Ex: 4,3,H: ");
+            string input = Console.ReadLine();
+            while (!ShipStringIsValid(input, board))
+            {
+                Console.Write("Enter coordinate and direction, EX: 6,5,V");
+                input = Console.ReadLine();
+            }
+            string[] shipCoordinate = input.Split(',');
+            return shipCoordinate;
+        }
+
+        private static bool ShipPositionIsValid(int coordinateX, int coordinateY, GameBoard board, Ship ship, string direction)
+        {
+            if (coordinateX > board.size || coordinateY > board.size)
+            {
+                return false;
+            }
+            if (direction.Equals("v"))
+            {
+                if (coordinateX + ship.size > board.size)
+                {
+                    return false;
+                }
+            }
+            if (direction.Equals("h"))
+            {
+                if (coordinateY + ship.size > board.size)
+                {
+                    return false;
+                }
+            }
+
+            for (int i = 0; i < ship.size; i++)
+            {
+                if (direction.Equals("v"))
+                {
+                    if (board.matrix[coordinateX + i, coordinateY] != 0)
+                    {
+                        return false;
+                    }
+                    else if (direction.Equals("h"))
+                    {
+                        if (board.matrix[ship.positionX, ship.positionY + i] != 0)
+                        {
+                            return false;
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
+        private static bool ShipStringIsValid(string input, GameBoard board)
         {
             string[] inputs = input.Split(',');
+            if (inputs.Length != 3)
+            {
+                return false;
+            }
             int int1;
             int int2;
-            if (int.TryParse(inputs[0], out int1) && int.TryParse(inputs[1],out int2))
+            if (int.TryParse(inputs[0], out int1) && int.TryParse(inputs[1], out int2))
             {
-                if (int1 <= Gameboard.size && int2 <= GameBoard.size)
+                if (int1 <= board.size && int2 <= board.size)
                 {
-                    string direction = inputs[3].ToLower();
+                    string direction = inputs[2].ToLower();
                     if (direction == "v" || direction == "h")
                     {
                         return true;
