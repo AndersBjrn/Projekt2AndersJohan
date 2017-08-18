@@ -69,5 +69,40 @@ namespace GroupWork2
             Console.WriteLine("-------------");
             Console.WriteLine();
         }
+
+        public bool CheckCoordinate(int row, int col)
+        {
+            int cell = gameBoard[row, col];
+
+            if (cell == 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+
+        }
     }
 }
+
+            // if coordinate x = .. and coord y != 0 SÅ är det 1=skepp 
+        //{
+//            int[,] arr = { { 1, 2, 3, 4, 5 }, { 6, 7, 8, 9, 10 } };
+
+
+//            for (int i = 0; i < arr.GetLength(0); i++)
+//            {
+//                for (int j = 0; j < arr.GetLength(1); j++)
+//                {
+//                    Console.WriteLine(arr[i, j]);
+//                }
+//                Console.WriteLine("");
+//            }
+//            Console.ReadLine();
+//        }
+//    }
+//    }
+//}
