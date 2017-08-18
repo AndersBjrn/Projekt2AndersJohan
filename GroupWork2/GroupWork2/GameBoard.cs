@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace GroupWork2
 {
-    public class GameBoard
+    public class GameBoard // Metoderna som skapar spelplanen
     {
-        private int size;
+        private int size; // Sätta parametrarna för storleken på spelplanen
         public int Size
         {
             get
@@ -21,7 +21,7 @@ namespace GroupWork2
             }
         }
 
-        public int[,] gameBoard { get; set; }
+        public static int[,] gameBoard { get; set; } // Tvådimensionell vektor = spelplanen
         public GameBoard(int size)
         {
             this.size = size;
@@ -31,13 +31,13 @@ namespace GroupWork2
 
         {
             Console.Write("Hur stor spelplan vill du ha? (x gånger x rutor) ");
-            int size = Program.CheckThatInputIsInt();
+            int size = Program.CheckThatInputIsInt();                           // Kolla korrekt användarinput
             GameBoard board = new GameBoard(size);
 
             return board;
         }
 
-        public void PrintBoard()
+        public static void PrintBoard() // Skriver ut spelplanen med streckmarkeringar runtom planen och de enskilda cellerna
         {
             Console.WriteLine("");
             Console.WriteLine();
@@ -56,39 +56,20 @@ namespace GroupWork2
             Console.WriteLine();
         }
 
-        public bool CheckCoordinate(int row, int col)
+        public bool CheckCoordinate(int row, int col) // Talar om ifall positionen/cellen man skjutit på innehåller ett skepp eller är tom = träff eller miss
         {
-            int cell = gameBoard[row, col];
+            int cell = gameBoard[size, size];
 
             if (cell == 1)
             {
-                return true;
+                return true; // = Träff
             }
             else
             {
-                return false;
+                return false; // = Miss
             }
 
 
         }
     }
 }
-
-            // if coordinate x = .. and coord y != 0 SÅ är det 1=skepp 
-        //{
-//            int[,] arr = { { 1, 2, 3, 4, 5 }, { 6, 7, 8, 9, 10 } };
-
-
-//            for (int i = 0; i < arr.GetLength(0); i++)
-//            {
-//                for (int j = 0; j < arr.GetLength(1); j++)
-//                {
-//                    Console.WriteLine(arr[i, j]);
-//                }
-//                Console.WriteLine("");
-//            }
-//            Console.ReadLine();
-//        }
-//    }
-//    }
-//}

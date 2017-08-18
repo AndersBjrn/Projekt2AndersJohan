@@ -10,9 +10,11 @@ namespace GroupWork2
     {
         static void Main(string[] args)
         {
-            GameBoard board = GameBoard.CreateBoard();
             ChooseShips(board);
             PlaceShips();
+            GameBoard.CreateBoard();
+            GameBoard.PrintBoard();
+            GameBoard.CheckCoordinate();
         }
 
         private static List<Ship> ChooseShips(GameBoard board)//Lets the user decide to add ships or use default number of ships
