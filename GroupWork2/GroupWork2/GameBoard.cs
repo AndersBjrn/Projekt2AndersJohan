@@ -28,11 +28,9 @@ namespace GroupWork2
             this.size = size;
             matrix = new int[size, size];
         }
-        public static GameBoard CreateBoard()
+        public static GameBoard CreateBoard(int size)
 
         {
-            Console.Write("Hur stor spelplan vill du ha? (x gånger x rutor): ");
-            int size = Program.CheckThatInputIsInt();
             GameBoard board = new GameBoard(size);
             return board;
         }
@@ -43,19 +41,37 @@ namespace GroupWork2
             Console.WriteLine();
             for (int i = 0; i < gameBoard.size; i++)
             {
-                Console.WriteLine("-------------");
+                for (int j = 0; j < gameBoard.size; j++)
+                {
+                    Console.Write("--");
+                }
+                Console.WriteLine("-");
                 Console.Write("|");
 
                 for (int j = 0; j < gameBoard.size; j++)
                 {
                     if (gameBoard.matrix[i, j] == 1)
                     {
-                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.Write(gameBoard.matrix[i, j]);
                         Console.ResetColor();
                         Console.Write("|"); 
                     }
-                    else
+                    else if (gameBoard.matrix[i, j] == 2)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write("w");
+                        Console.ResetColor();
+                        Console.Write("|");
+                    }
+                    else if (gameBoard.matrix[i, j] == 3)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Yellow;
+                        Console.Write("o");
+                        Console.ResetColor();
+                        Console.Write("|");
+                    }
+                    else 
                     {
                         Console.ForegroundColor = ConsoleColor.Blue;
                         Console.Write(gameBoard.matrix[i, j]);
@@ -66,25 +82,29 @@ namespace GroupWork2
                 }
                 Console.WriteLine("");
             }
-            Console.WriteLine("-------------");
+            for (int j = 0; j < gameBoard.size; j++)
+            {
+                Console.Write("--");
+            }
+            Console.WriteLine("-");
             Console.WriteLine();
         }
 
-        public bool CheckCoordinate(int row, int col)
-        {
-            int cell = gameBoard[row, col];
+        //public bool CheckCoordinate(int row, int col)
+        //{
+        //    int cell = gameBoard[row, col];
 
-            if (cell == 1)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+        //    if (cell == 1)
+        //    {
+        //        return true;
+        //    }
+        //    else
+        //    {
+        //        return false;
+        //    }
 
 
-        }
+        //}
     }
 }
 

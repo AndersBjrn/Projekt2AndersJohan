@@ -10,10 +10,50 @@ namespace GroupWork2
     {
         static void Main(string[] args)
         {
-            GameBoard board = GameBoard.CreateBoard();
-            GameBoard.PrintBoard(board);
-            List<Ship> ships = new List<Ship>(ChooseShips(board));
-            PlaceShips(board, ships);
+            List<Player> players = new List<Player>();
+            Console.Write("Hur stor spelplan vill du ha? (x gånger x rutor): ");
+            int size = CheckThatInputIsInt();
+            for (int i = 0; i < 2; i++)
+            {
+                GameBoard board = GameBoard.CreateBoard(size);
+                Console.WriteLine("Enter name for player" + (i + 1));
+                Player player = new Player(Console.ReadLine(), board);
+                players.Add(player);
+            }
+            for (int i = 0; i < 2; i++)
+            {
+                GameBoard b = players[i].board;
+                List<Ship> ships = new List<Ship>(ChooseShips(b));
+                PlaceShips(b, ships);
+            }
+            Playgame(players);
+        }
+
+        private static void Playgame(List<Player> players)
+        {
+            while (true)
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    Console.WriteLine("Player "+ players[i].name + ", enter coordinate to shoot! (ex 4 + enter + 3)" );
+                    int Xcoordinate = CheckThatInputIsInt();
+                    int Ycoordinate = CheckThatInputIsInt();
+                    Shoot(players[i].board, Xcoordinate, Ycoordinate);
+                    GameBoard.PrintBoard(players[i].board);
+                }
+            }
+        }
+
+        private static void Shoot(GameBoard board, int x, int y)
+        {
+            if (board.matrix[x,y] == 0)
+            {
+                board.matrix[x, y] = 3;
+            }
+            else if (board.matrix[x, y] == 1)
+            {
+                board.matrix[x, y] = 2;
+            }
         }
 
         private static List<Ship> ChooseShips(GameBoard board)//Lets the user decide to add ships or use default number of ships
